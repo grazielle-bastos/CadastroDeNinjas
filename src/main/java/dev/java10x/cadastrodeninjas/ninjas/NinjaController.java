@@ -33,9 +33,9 @@ public class NinjaController {
     }
 
     //GET - Mandar uma requisição para mostrar todos os ninjas por ID (READ)
-    @GetMapping("/listarID")
-    public String mostrarTodosOsNinjasPorID() {
-        return "Todos Ninja por ID";
+    @GetMapping("/listar/{id}")
+    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
+        return ninjaService.listarNinjasPorId(id);
     }
 
     //PUT - Mandar uma requisição para alterar um ninja por ID (UPDATE)
