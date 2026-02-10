@@ -1,11 +1,10 @@
 package dev.java10x.cadastrodeninjas.ninjas;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class NinjaService {
@@ -22,5 +21,9 @@ public class NinjaService {
     public NinjaModel listarNinjasPorId(Long id) {
         Optional<NinjaModel> ninjaPorId = ninjaRepository.findById(id);
         return ninjaPorId.orElse(null);
+    }
+
+    public NinjaModel criarNinja(NinjaModel ninja){
+        return ninjaRepository.save(ninja);
     }
 }
