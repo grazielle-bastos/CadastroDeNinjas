@@ -1,5 +1,6 @@
 package dev.java10x.cadastrodeninjas.missoes;
 
+import dev.java10x.cadastrodeninjas.ninjas.NinjaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,9 +10,11 @@ import java.util.List;
 public class MissoesController {
 
     private final MissoesService missoesService;
+    private final NinjaService ninjaService;
 
-    public MissoesController(MissoesService missoesService){
+    public MissoesController(MissoesService missoesService, NinjaService ninjaService){
         this.missoesService = missoesService;
+        this.ninjaService = ninjaService;
     }
 
 // GET - Mandar uma requisição para mostrar as missões
@@ -32,9 +35,9 @@ public class MissoesController {
     }
 
 // PUT - Mandar uma requisição para alterar as missões
-    @PutMapping("/alterar")
-    public String alterarMissao() {
-        return "Missao alterada com sucesso";
+    @PutMapping("/alterar/{id}")
+    public MissoesModel alterarMissao(@PathVariable Long id, @RequestBody MissoesModel missoesAtualizado) {
+        return missoesService.atualizarMissoes(id, missoesAtualizado);
     }
 
   //DELETE - Mandar uma requisicão para deletar as missões
