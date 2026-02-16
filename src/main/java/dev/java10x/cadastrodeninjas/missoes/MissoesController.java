@@ -1,6 +1,5 @@
 package dev.java10x.cadastrodeninjas.missoes;
 
-import dev.java10x.cadastrodeninjas.ninjas.NinjaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,11 +9,9 @@ import java.util.List;
 public class MissoesController {
 
     private final MissoesService missoesService;
-    private final NinjaService ninjaService;
 
-    public MissoesController(MissoesService missoesService, NinjaService ninjaService){
+    public MissoesController(MissoesService missoesService){
         this.missoesService = missoesService;
-        this.ninjaService = ninjaService;
     }
 
 // GET - Mandar uma requisição para mostrar as missões
@@ -30,7 +27,7 @@ public class MissoesController {
 
 // POST - Mandar uma requisição para criar as missões
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missoes) {
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missoes) {
         return missoesService.criarMissao(missoes);
     }
 

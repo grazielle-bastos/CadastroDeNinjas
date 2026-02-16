@@ -9,9 +9,11 @@ import java.util.Optional;
 public class MissoesService {
 
     private final MissoesRepository missoesRepository;
+    private final MissoesMapper missoesMapper;
 
-    public MissoesService(MissoesRepository missoesRepository){
+    public MissoesService(MissoesRepository missoesRepository, MissoesMapper missoesMapper){
         this.missoesRepository = missoesRepository;
+        this.missoesMapper = missoesMapper;
     }
 
     public List<MissoesModel> listarMissao() {
@@ -23,8 +25,11 @@ public class MissoesService {
         return missaoPorId.orElse(null);
     }
 
-    public MissoesModel criarMissao(MissoesModel missoes){
-        return missoesRepository.save(missoes);
+    public MissoesDTO criarMissao(MissoesDTO missoesDTO)
+    {
+        MissoesModel missoes = missoesMapper.map(missoesDTO);
+        missoes = missoesRepository.save(missoes);
+        return missoesMapper.map(missoes);
     }
 
     public void deletarMissao(Long id){
