@@ -26,10 +26,13 @@ public class NinjaModel {
     private String email;
 
     @Column(name = "img_url")
-    private String imUrl;
+    private String imgUrl;
 
     @Column(name = "idade")
     private String idade;
+
+    @Column(name = "rank")
+    private String rank;
 
     // @ManyToOne - Um ninja tem uma única missão
     @ManyToOne
