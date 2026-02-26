@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Ninja | Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .detail-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Cabeçalho do perfil */
+        .profile-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ninja-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .profile-header h2 {
+            margin: 0 0 4px;
+            font-weight: 400;
+            font-size: 1.4rem;
+        }
+
+        .profile-header small {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Tabela de detalhes */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .info-table .label {
+            font-weight: 600;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 140px;
+        }
+
+        /* Badges de Rank */
+        .rank-badge {
+            background: #ecf0f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+
+        /* Caixa de missão */
+        .mission-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .mission-box strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .mission-box small {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+
+        .no-mission {
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Botões Estilizados */
+        .actions {
+            padding: 18px 20px;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit      { background-color: #f1c40f; color: white; }
+        .btn-delete    { background-color: #e74c3c; color: white; }
+        .btn-secondary { background-color: #7f8c8d; color: white; }
+
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Detalhes do Ninja</h1>
+
+<div class="detail-container">
+
+    <div class="profile-header">
+        <img th:src="${ninja.imgUrl}" alt="Avatar do Ninja" class="ninja-img" />
+        <div>
+            <h2 th:text="${ninja.nome}"></h2>
+            <small th:text="${ninja.email}"></small>
+        </div>
+    </div>
+
+    <table class="info-table">
+        <tr>
+            <td class="label">ID</td>
+            <td th:text="${ninja.id}" style="font-family: monospace; color: #7f8c8d;"></td>
+        </tr>
+        <tr>
+            <td class="label">Idade</td>
+            <td th:text="${ninja.idade} + ' anos'"></td>
+        </tr>
+        <tr>
+            <td class="label">Rank</td>
+            <td><span class="rank-badge" th:text="${ninja.rank}"></span></td>
+        </tr>
+        <tr>
+            <td class="label">Missão</td>
+            <td>
+                <div th:if="${ninja.missoes}" class="mission-box">
+                    <strong th:text="${ninja.missoes.titulo}"></strong>
+                    <small th:text="${ninja.missoes.descricao}"></small>
+                </div>
+                <span th:if="${ninja.missoes == null}" class="no-mission">Sem missão atribuída</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="actions">
+        <a th:href="@{/ninjas/ui/listar}" class="btn btn-secondary">Voltar</a>
+        <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" class="btn btn-edit">Alterar</a>
+        <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}" class="btn btn-delete">Deletar</a>
+    </div>
+
+</div>
+
+</body>
+</html>

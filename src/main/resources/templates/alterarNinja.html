@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Ninja | Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background-color: #f1c40f;
+            color: white;
+            padding: 18px 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-header .ninja-id {
+            background: rgba(255,255,255,0.25);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .mensagem {
+            padding: 12px;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid #c3e6cb;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #f1c40f;
+            box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.15);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            flex: 1;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-edit      { background-color: #f1c40f; color: white; }
+        .btn-secondary { background-color: #7f8c8d; color: white; }
+    </style>
+</head>
+<body>
+
+<h1>Alterar Ninja</h1>
+
+<div class="form-container">
+    <div class="form-header">
+        Editando Ninja
+        <span class="ninja-id" th:text="'ID: ' + ${ninja.id}"></span>
+    </div>
+    <div class="form-body">
+        <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+        <form th:action="@{/ninjas/ui/atualizar/{id}(id=${ninja.id})}" th:object="${ninja}" method="post">
+
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" required />
+
+            <label for="imgUrl">URL da Imagem</label>
+            <input type="text" id="imgUrl" th:field="*{imgUrl}" />
+
+            <label for="idade">Idade</label>
+            <input type="number" id="idade" th:field="*{idade}" min="0" />
+
+            <label for="rank">Rank</label>
+            <input type="text" id="rank" th:field="*{rank}" />
+
+            <div class="actions">
+                <a th:href="@{/ninjas/ui/listar}" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-edit">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
